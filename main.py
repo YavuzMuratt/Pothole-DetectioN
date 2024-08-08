@@ -44,7 +44,7 @@ def get_current_location():
 
 # Function to get street and neighborhood name using Google Maps Geocoding API
 def get_address_info(lat, lon):
-    api_key = 'AIzaSyChrl_c3HMSt6lSoP8RJ_jBCXZJxewyxgg'  # Replace with your API key
+    api_key = 'your_api_key'  # Replace with your API key
     url = f'https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lon}&key={api_key}'
     response = requests.get(url)
     data = response.json()
