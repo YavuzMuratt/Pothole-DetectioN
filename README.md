@@ -8,6 +8,9 @@ This project aims to detect potholes using a YOLOv8 model integrated with a came
 - [Prerequisites](#prequisities)
 
 ## Usage
+
+  -- Run nogpsmain.py for ip based geolocation --
+
   Download YOLOv8 Model
   Place your YOLOv8 model file (modelv3.pt) in the model directory.
 
