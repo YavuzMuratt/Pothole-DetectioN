@@ -1,6 +1,6 @@
 # Pothole Detection Project
 
-This project aims to detect potholes using a YOLOv8 model integrated with a camera feed. The project captures images of detected potholes, saves the coordinates using a GPS module, retrieves address information via Google Maps API, and stores the data in an SQLite database. Additionally, it generates a map displaying the locations of the detected potholes.
+This project aims to detect potholes using a YOLOv8 model integrated with a camera feed. The project captures images of detected potholes, saves the coordinates using a GPS module, retrieves address information via Google Maps API, and stores the data in an SQLite database. Additionally, it uses Flask for setting up a server to display database and at the end of the running it generates a map displaying the locations of the detected potholes.
 
 ## Table of Contents
 - [Usage](#usage)
