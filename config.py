@@ -1,5 +1,5 @@
 # Google Maps API Key
-API_KEY = 'AIzaSyChrl_c3HMSt6lSoP8RJ_jBCXZJxewyxgg'  # Replace with your API key
+API_KEY = 'enter your api key'  # Replace with your API key
 
 # Serial port configuration
 SERIAL_PORT = 'COM10'
