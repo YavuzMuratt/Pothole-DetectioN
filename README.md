@@ -9,7 +9,7 @@ This project aims to detect potholes using a YOLOv8 model integrated with a came
 
 ## Usage
 
-  -- Run nogpsmain.py for ip based geolocation --
+  -- Run nogpsmain.py for ip based geolocation, it uses ipproces.py and ipgeolocation.py to run --
 
   Download YOLOv8 Model
   Place your YOLOv8 model file (modelv3.pt) in the model directory.
@@ -18,10 +18,12 @@ This project aims to detect potholes using a YOLOv8 model integrated with a came
   Create SQLite Database
   Run the following script to set up the database:
 
-  python dbase.py
+  python database.py
 
   Running the Detection Script:
   python main.py
+
+  You can run the server.py and display your database on the web. Can be port-forwarded via serveo or etc. to make it public
 
   This script will:
 
