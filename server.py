@@ -55,7 +55,6 @@ def get_pothole_image(pothole_id):
 
 @app.route('/', methods=['GET'])
 def home():
-    # HTML template with Bootstrap and JavaScript for interactive UI
     html_template = '''
     <!DOCTYPE html>
     <html lang="en">
@@ -80,6 +79,7 @@ def home():
     <body>
         <div class="container">
             <h1 class="text-center">Pothole Detection Data</h1>
+            <button class="btn btn-primary" onclick="window.location.href='/map'">See Map</button>
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
                     <tr>
@@ -138,6 +138,64 @@ def home():
                     imageDiv.style.display = 'none';
                 }
             }
+        </script>
+    </body>
+    </html>
+    '''
+    return render_template_string(html_template)
+
+
+@app.route('/map', methods=['GET'])
+def map_view():
+    html_template = '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pothole Map</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+        <style>
+            #map {
+                height: 100vh;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script>
+            // Initialize the map
+            var map = L.map('map').setView([0, 0], 2);  // Default view
+
+            // Load OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            // Fetch pothole data from the server
+            fetch('/potholes')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var bounds = [];
+                        data.forEach(pothole => {
+                            var marker = L.marker([pothole.latitude, pothole.longitude]).addTo(map);
+                            marker.bindPopup(
+                                `<b>Pothole ID:</b> ${pothole.id}<br>
+                                 <b>Address:</b> ${pothole.address}<br>
+                                 <img src="/pothole/image/${pothole.id}" alt="Pothole Image" style="width:100px;">`
+                            );
+                            bounds.push([pothole.latitude, pothole.longitude]);
+                        });
+                        map.fitBounds(bounds);
+                    } else {
+                        alert('No potholes detected yet.');
+                    }
+                })
+                .catch(error => console.error('Error fetching pothole data:', error));
         </script>
     </body>
     </html>
