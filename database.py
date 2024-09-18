@@ -18,6 +18,7 @@ class Database:
                                 latitude REAL,
                                 longitude REAL,
                                 address TEXT,
+                                status TEXT DEFAULT 'New',
                                 image BLOB
                               )''')
         self.conn.commit()
