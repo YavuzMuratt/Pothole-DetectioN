@@ -1,37 +1,39 @@
 import cv2
+from picamera2 import Picamera2
+import time
 from image_processing import PotholeDetector
 from config import SAVE_DIR
-
 
 def main():
     detector = PotholeDetector()
 
-    cap = cv2.VideoCapture(0)
+    # Initialize Picamera2
+    picam2 = Picamera2()
+    picam2.configure(picam2.create_still_configuration())
+    picam2.start()
 
-    if not cap.isOpened():
-        print("Error: Could not open video capture")
-        return
+    time.sleep(2)  # Allow the camera to warm up
 
     while True:
-        ret, frame = cap.read()
-        if not ret:
-            print("Error: Could not read frame")
-            break
+        # Capture a frame from the camera
+        image = picam2.capture_array()
 
-        results = detector.detect_potholes(frame)
-        frame = detector.draw_boxes_and_capture(frame, results)
+        # Process the frame
+        results = detector.detect_potholes(image)
+        
+        # Draw boxes and capture with GPS coordinates if a pothole is detected
+        image = detector.draw_boxes_and_capture(image, results)
 
-        cv2.imshow("Pothole Detector", frame)
+        # Display the image using OpenCV
+        cv2.imshow("Pothole Detector", image)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-    cap.release()
+    picam2.stop()
     cv2.destroyAllWindows()
-
 
 if __name__ == "__main__":
     main()
     import generate_map
-
     generate_map.generate_map()

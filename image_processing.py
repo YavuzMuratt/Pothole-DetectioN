@@ -7,7 +7,6 @@ from gps import GPS
 from database import Database
 from config import YOLO_MODEL_PATH, SAVE_DIR, CONFIDENCE_THRESHOLD
 
-
 class PotholeDetector:
     def __init__(self):
         self.model = YOLO(YOLO_MODEL_PATH)
@@ -35,13 +34,14 @@ class PotholeDetector:
 
         if pothole_detected:
             lat, lon = self.gps.get_current_location()
-            timestamp = datetime.datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
-            filename = f"{SAVE_DIR}/Pothole_{timestamp}_Lat_{lat}_Lon_{lon}.jpg"
-            cv2.imwrite(filename, frame)
+            if lat is not None and lon is not None:
+                timestamp = datetime.datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+                filename = f"{SAVE_DIR}/Pothole_{timestamp}_Lat_{lat}_Lon_{lon}.jpg"
+                cv2.imwrite(filename, frame)
 
-            # Save information in the database
-            self.database.save_to_database(frame, filename, lat, lon, timestamp)
+                # Save information in the database
+                self.database.save_to_database(frame, filename, lat, lon, timestamp)
 
-            time.sleep(3)
+                time.sleep(3)
 
         return frame

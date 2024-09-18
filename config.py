@@ -2,8 +2,8 @@
 API_KEY = 'enter your api key'  # Replace with your API key
 
 # Serial port configuration
-SERIAL_PORT = 'COM10'
-BAUD_RATE = 9600
+SERIAL_PORT = '/dev/ttyACM0'
+BAUD_RATE = 57600
 
 # YOLO model path
 YOLO_MODEL_PATH = 'model/modelv3.pt'
