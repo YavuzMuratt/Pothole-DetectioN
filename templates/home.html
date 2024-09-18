@@ -1,0 +1,61 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pothole Detection Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        table { margin-top: 20px; }
+        .hidden-image { display: none; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Pothole Detection Data</h1>
+        <button class="btn btn-primary" onclick="window.location.href='/map'">See Map</button>
+        <button class="btn btn-secondary" onclick="window.location.href='/stats'">See Statistics</button>
+
+        <!-- Filter Dropdown -->
+        <div class="form-group">
+            <label for="statusFilter">Filter by Status:</label>
+            <select class="form-control" id="statusFilter" onchange="filterAndSearchPotholes()">
+                <option value="All">All</option>
+                <option value="New">New</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
+            </select>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="form-group">
+            <label for="searchInput">Search:</label>
+            <input type="text" class="form-control" id="searchInput" oninput="filterAndSearchPotholes()" placeholder="Search by ID, filename, or address...">
+        </div>
+
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Filename</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Address</th>
+                    <th>Image</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="pothole-data">
+                <!-- Data will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="{{ url_for('static', filename='home.js') }}"></script>
+</body>
+</html>
